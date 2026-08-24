@@ -1,0 +1,51 @@
+package com.matheus.financeai.infrastructure.persistence.entity;
+
+import com.matheus.financeai.domain.Category;
+import com.matheus.financeai.domain.Transaction;
+import com.matheus.financeai.domain.TransactionId;
+import com.matheus.financeai.domain.TransactionType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.UUID;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class TransactionEntity {
+    @Id
+    private UUID id;
+    private String description;
+    private long amount;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
+
+    public static TransactionEntity from(Transaction transaction) {
+        return new TransactionEntity(
+                transaction.getId().uuid(),
+                transaction.getDescription(),
+                transaction.getAmount(),
+                transaction.getCategory(),
+                transaction.getType());
+    }
+
+    public Transaction toDomain() {
+        return new Transaction(
+                new TransactionId(this.id),
+                this.description,
+                this.amount,
+                this.category,
+                this.type == null ? TransactionType.EXPENSE : this.type
+        );
+    }
+}
