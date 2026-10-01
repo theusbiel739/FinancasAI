@@ -95,7 +95,7 @@ export OLLAMA_BASE_URL="http://localhost:11434"
 
 ## Requisitos
 
-- Java 25;
+- Java 21;
 - Ollama;
 - modelo local `qwen2.5:7b` ou outro modelo compatível com ferramentas;
 - Docker e MySQL para execução normal com persistência.
@@ -139,7 +139,7 @@ docker compose version
 
 ## Executar a aplicação
 
-Com Java 25, Ollama e Docker ativos:
+Com Java 21, Ollama e Docker ativos:
 
 ```bash
 ./gradlew bootRun
@@ -248,7 +248,7 @@ Sem o perfil, esse endpoint retorna HTTP `503` com uma explicação. Nunca grave
 
 ## Tecnologias
 
-- Java 25;
+- Java 21;
 - Spring Boot 4.0.5;
 - Spring AI 2.0.0-M4;
 - Spring AI Ollama;
